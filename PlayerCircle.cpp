@@ -5,8 +5,8 @@ PlayerCircle::PlayerCircle(int pos_x, int pos_y, int radius)
     this->pos_x = pos_x;
     this->pos_y = pos_y;
     this->radius = radius;
-    this->speed = 10;
-    this->color = BLACK;
+    this->speed = 20;
+    this->color = RED;
 }
 
 void PlayerCircle::TryMove(int screenwidth, int screenheight)
