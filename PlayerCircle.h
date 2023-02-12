@@ -7,6 +7,7 @@ class PlayerCircle {
         int radius;
         int speed;
         CLITERAL(Color) color;
+        int test;
 
     public:
         PlayerCircle(int pos_x, int pos_y, int radius);
