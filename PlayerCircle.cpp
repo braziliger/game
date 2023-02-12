@@ -17,7 +17,7 @@ void PlayerCircle::TryMove(int screenwidth, int screenheight)
         }
         else
         {
-            color = RED;
+            color = YELLOW;
         }
     }
     else if (IsKeyDown(KEY_A) && pos_x-radius > 0) {
