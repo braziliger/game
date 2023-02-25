@@ -1,43 +1,46 @@
 #include "PlayerCircle.h"
+#include "raylib.h"
+#include "MovingScreen.h"
 
-PlayerCircle::PlayerCircle(int pos_x, int pos_y, int radius)
-{
+PlayerCircle::PlayerCircle(int pos_x, int pos_y, int radius) {
     this->pos_x = pos_x;
     this->pos_y = pos_y;
     this->radius = radius;
     this->speed = 15;
-    this->color = RED;
+    this->color = GREEN;
 }
 
-void PlayerCircle::TryMove(int screenwidth, int screenheight)
-{
-    if (IsKeyDown(KEY_D)) {
-        if (pos_x+radius < screenwidth) {
-            pos_x += speed;
-        }
-        else
-        {
-            color = YELLOW;
-        }
-    }
-    else if (IsKeyDown(KEY_A) && pos_x-radius > 0) {
-        pos_x -= speed;
-    }
-    else if (IsKeyDown(KEY_W) && pos_y-radius > 0) {
+void PlayerCircle::TryMove(MovingScreen& screen) {
+    if (IsKeyDown(KEY_W)) {
         pos_y -= speed;
     }
-    else if (IsKeyDown(KEY_S) && pos_y+radius < screenheight) {
+    if (IsKeyDown(KEY_S)) {
         pos_y += speed;
     }
+    if (IsKeyDown(KEY_A)) {
+        pos_x -= speed;
+        if (pos_x < screen.GetPositionX()) {
+            pos_x = screen.GetPositionX();
+        }
+    }
+    if (IsKeyDown(KEY_D)) {
+        pos_x += speed;
+        if (pos_x > screen.GetPositionX() + screen.GetScreenWidth() - radius * 2) {
+            pos_x = screen.GetPositionX() + screen.GetScreenWidth() - radius * 2;
+        }
+    }
+
+    screen.Update(pos_x, pos_x - screen.GetPositionX() > screen.GetScreenWidth() * 0.8f);
 }
 
-Vector2 PlayerCircle::GetPosition()
-{
+
+
+
+Vector2 PlayerCircle::GetPosition() {
     return Vector2{(float)pos_x, (float)pos_y};
 }
 
-int PlayerCircle::GetRadius()
-{
+int PlayerCircle::GetRadius() {
     return this->radius;
 }
 
